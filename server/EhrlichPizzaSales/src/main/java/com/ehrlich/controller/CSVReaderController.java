@@ -1,12 +1,11 @@
 package com.ehrlich.controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +38,12 @@ public class CSVReaderController {
 	private IOrderDetailsRepo orderDetailsRepo;
 	
 	@PostMapping(value="/pizza",  consumes = "multipart/form-data")
-	public String CVSReader(@RequestParam("file") MultipartFile file) {
+	public String CVSReader(@RequestHeader("key") String key, @RequestParam("file") MultipartFile file) {
+		
+		if (!key.equals("AA123#$")) {
+			return "Unauthorized User.";
+		}
+		
 		try {
 			List<Pizzas> pizzas = pizzasRepo.saveAll(CSVUtils.readFile(Pizzas.class, file.getInputStream()));
 			
@@ -57,7 +61,12 @@ public class CSVReaderController {
 	}
 	
 	@PostMapping(value="/pizza_type",  consumes = "multipart/form-data")
-	public String CVSReaderPizzaType(@RequestParam("file") MultipartFile file) {
+	public String CVSReaderPizzaType(@RequestHeader("key") String key,@RequestParam("file") MultipartFile file) {
+		
+		if (!key.equals("AA123#$")) {
+			return "Unauthorized User.";
+		}
+		
 		try {
 			List<PizzaTypes> pizzaTypes = pizzaTypesRepo.saveAll(CSVUtils.readFile(PizzaTypes.class, file.getInputStream()));
 			
@@ -75,7 +84,12 @@ public class CSVReaderController {
 	}
 	
 	@PostMapping(value="/orders",  consumes = "multipart/form-data")
-	public String CVSReaderOrders(@RequestParam("file") MultipartFile file) {
+	public String CVSReaderOrders(@RequestHeader("key") String key,@RequestParam("file") MultipartFile file) {
+		
+		if (!key.equals("AA123#$")) {
+			return "Unauthorized User.";
+		}
+		
 		try {
 			List<Orders> orders = ordersRepo.saveAll(CSVUtils.readFile(Orders.class, file.getInputStream()));
 			
@@ -93,7 +107,12 @@ public class CSVReaderController {
 	}
 	
 	@PostMapping(value="/orders_details",  consumes = "multipart/form-data")
-	public String CVSReaderOrdersDetails(@RequestParam("file") MultipartFile file) {
+	public String CVSReaderOrdersDetails(@RequestHeader("key") String key,@RequestParam("file") MultipartFile file) {
+		
+		if (!key.equals("AA123#$")) {
+			return "Unauthorized User.";
+		}
+		
 		try {
 			
 			List<OrderDetails> orderDetails = orderDetailsRepo.saveAll(CSVUtils.readFile(OrderDetails.class, file.getInputStream()));

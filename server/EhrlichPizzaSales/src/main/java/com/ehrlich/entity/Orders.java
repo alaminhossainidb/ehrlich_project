@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="orders")
@@ -25,6 +26,9 @@ public class Orders {
 	@Column(name = "time")
 	private Time time;
 
+	@Transient
+	private OrderDetails orderDetails;
+	
 	public Long getOrder_id() {
 		return order_id;
 	}
@@ -47,6 +51,14 @@ public class Orders {
 
 	public void setTime(Time time) {
 		this.time = time;
+	}
+
+	public OrderDetails getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(OrderDetails orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 	
 	
