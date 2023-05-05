@@ -24,7 +24,7 @@ import com.ehrlich.utils.CSVUtils;
 
 @RestController
 @RequestMapping(value = "/csv/read")
-public class CVSReaderController {
+public class CSVReaderController {
 
 	@Autowired
 	private IPizzasRepo pizzasRepo;
@@ -95,7 +95,6 @@ public class CVSReaderController {
 	@PostMapping(value="/orders_details",  consumes = "multipart/form-data")
 	public String CVSReaderOrdersDetails(@RequestParam("file") MultipartFile file) {
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
 			
 			List<OrderDetails> orderDetails = orderDetailsRepo.saveAll(CSVUtils.readFile(OrderDetails.class, file.getInputStream()));
 			
