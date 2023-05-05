@@ -23,7 +23,7 @@ import com.ehrlich.repo.IPizzasRepo;
 import com.ehrlich.utils.CSVUtils;
 
 @RestController
-@RequestMapping(value = "/csv")
+@RequestMapping(value = "/csv/read")
 public class CVSReaderController {
 
 	@Autowired
@@ -38,7 +38,7 @@ public class CVSReaderController {
 	@Autowired
 	private IOrderDetailsRepo orderDetailsRepo;
 	
-	@PostMapping(value="/read/pizza",  consumes = "multipart/form-data")
+	@PostMapping(value="/pizza",  consumes = "multipart/form-data")
 	public String CVSReader(@RequestParam("file") MultipartFile file) {
 		try {
 			List<Pizzas> pizzas = pizzasRepo.saveAll(CSVUtils.readFile(Pizzas.class, file.getInputStream()));
@@ -56,7 +56,7 @@ public class CVSReaderController {
 		
 	}
 	
-	@PostMapping(value="/read/pizza_type",  consumes = "multipart/form-data")
+	@PostMapping(value="/pizza_type",  consumes = "multipart/form-data")
 	public String CVSReaderPizzaType(@RequestParam("file") MultipartFile file) {
 		try {
 			List<PizzaTypes> pizzaTypes = pizzaTypesRepo.saveAll(CSVUtils.readFile(PizzaTypes.class, file.getInputStream()));
@@ -74,7 +74,7 @@ public class CVSReaderController {
 		
 	}
 	
-	@PostMapping(value="/read/orders",  consumes = "multipart/form-data")
+	@PostMapping(value="/orders",  consumes = "multipart/form-data")
 	public String CVSReaderOrders(@RequestParam("file") MultipartFile file) {
 		try {
 			List<Orders> orders = ordersRepo.saveAll(CSVUtils.readFile(Orders.class, file.getInputStream()));
@@ -92,7 +92,7 @@ public class CVSReaderController {
 		
 	}
 	
-	@PostMapping(value="/read/orders_details",  consumes = "multipart/form-data")
+	@PostMapping(value="/orders_details",  consumes = "multipart/form-data")
 	public String CVSReaderOrdersDetails(@RequestParam("file") MultipartFile file) {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
